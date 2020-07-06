@@ -1,0 +1,28 @@
+<html>
+    <head>
+        <title>{{ title }}</title>
+    </head>
+    <body>
+        <h1>Try it yourself</h1>
+		<form action="" method="post" novalidate>
+			{{ form.hidden_tag() }}
+			<p>
+				{{ form.query.label }}<br>
+				{{ form.query(size=32) }}
+			</p>
+			<p>
+				{{ form.submit() }}
+			</p>
+			{% with messages = get_flashed_messages() %}
+			{% if messages %}
+			<hr>
+			<ul>
+				{% for message in messages %}
+				<li>{{ message }}</li>
+				{% endfor %}
+			</ul>
+			{% endif %}
+			{% endwith %}
+		</form>
+    </body>
+</html>

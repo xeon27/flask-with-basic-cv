@@ -1,0 +1,33 @@
+<html>
+    <head>
+        <title>{{ title }}</title>
+    </head>
+    <body>
+        <h1>Try it yourself</h1>
+		<form action="" enctype="multipart/form-data" method="post">
+			{{ form.hidden_tag() }}
+			<p>
+				{{ form.image.label }}<br>
+				{{ form.image() }}
+			</p>
+			<p>
+				{{ form.upload() }}
+			</p>
+			{% with messages = get_flashed_messages() %}
+			{% if messages %}
+			<hr>
+			<ul>
+				{% for message in messages %}
+				<li>{{ message }}</li>
+				{% endfor %}
+			</ul>
+			{% if filename %}
+				<div>
+					<img src="{{ url_for('static', filename='images/' + filename) }}" alt="Your uploaded image" style="width:650px;height:350px">
+				</div>
+			{% endif %}
+			{% endif %}
+			{% endwith %}
+		</form>
+    </body>
+</html>
