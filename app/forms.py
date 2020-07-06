@@ -12,3 +12,10 @@ class QueryForm(FlaskForm):
 class ImageForm(FlaskForm):
     image = FileField('Image', validators=[FileRequired(), FileAllowed(['jpg', 'png'], 'Images Only')])
     upload = SubmitField('Upload')
+
+
+class ViewForm(FlaskForm):
+    edgev = SubmitField('Vertical Edges')
+    edgeh = SubmitField('Horizontal Edges')
+    gray = SubmitField('Gray Scale')
+    org = SubmitField('Original')

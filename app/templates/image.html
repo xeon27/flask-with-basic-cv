@@ -21,11 +21,6 @@
 				<li>{{ message }}</li>
 				{% endfor %}
 			</ul>
-			{% if filename %}
-				<div>
-					<img src="{{ url_for('static', filename='images/' + filename) }}" alt="Your uploaded image" style="width:650px;height:350px">
-				</div>
-			{% endif %}
 			{% endif %}
 			{% endwith %}
 		</form>
