@@ -1,8 +1,20 @@
-<html>
-    <head>
-        <title>{{ title }}</title>
-    </head>
-    <body>
-        <h1>Welcome {{ user.username }}!</h1>
-    </body>
-</html>
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+
+{% block app_content %}
+<div class="container">
+	<div class="row">
+	<div class="col">
+		<h4>Try it yourself</h4>
+	</div>
+	<div class="col">
+		<form action="" enctype="multipart/form-data" method="post">
+		{{ form.hidden_tag() }}
+		{{ wtf.form_field(form.image) }}
+		{{ wtf.form_field(form.upload, button_map={"upload": 'primary'}) }}
+		</form>
+	</div>
+	</div>
+</div>
+{% endblock %}

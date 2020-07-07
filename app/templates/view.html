@@ -1,19 +1,24 @@
 {% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
 
-{% block content %}
-<h2>Choose your view</h2>
-<div>
-	<form action="" method="post">
-		{{ form.hidden_tag() }}
-		<p>{{ form.gray() }}</p>
-		<p>{{ form.edgev() }}</p>
-		<p>{{ form.edgeh() }}</p>
-		<p>{{ form.org() }}</p>
-	</form>
-</div><br>
-<div>
-	{% if filename %}
-		<img src="{{ url_for('static', filename='images/' + filename) }}" alt="Your uploaded image" style="width:650px;height:350px">
-	{% endif %}
+
+{% block app_content %}
+<div class="container">
+	<div class="row">
+		<div class="col">
+			<h4>Choose your view</h4>
+			<form action="" method="post">
+				{{ form.hidden_tag() }}
+				{{ wtf.form_field(form.org, button_map={"org": 'primary'}) }}
+				{{ wtf.form_field(form.gray, button_map={"gray": 'primary'}) }}
+				{{ wtf.form_field(form.edgev, button_map={"edgev": 'primary'}) }}
+				{{ wtf.form_field(form.edgeh, button_map={"edgeh": 'primary'}) }}
+			</form>
+		</div><br>
+		<div class="col">
+			{% if filename %}
+				<img src="{{ url_for('static', filename='images/' + filename) }}" alt="Your uploaded image", width="600", height="300">
+			{% endif %}
+		</div>
 </div>
 {% endblock %}
