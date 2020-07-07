@@ -4,27 +4,11 @@ from werkzeug.utils import secure_filename
 from app import app
 from app.forms import QueryForm, ImageForm, ViewForm
 from app.utils import get_num_words, transform_img, modify_filename
-
-
-@app.route("/")
-@app.route("/index")
+    
+    
+@app.route("/", methods=['GET', 'POST'])
+@app.route("/index", methods=['GET', 'POST'])
 def index():
-    user = {"username": 'Omkar'}
-	
-    return render_template('index.html', title='Home', user=user)
-    
-
-@app.route("/query", methods=['GET', 'POST'])
-def query():
-    form = QueryForm()
-    if form.validate_on_submit():
-        flash('Your query consists of {} words'.format(get_num_words(form.query.data)))
-        return redirect(url_for('query'))
-    return render_template('query.html', title='Query', form=form)
-    
-
-@app.route("/image", methods=['GET', 'POST'])
-def image():
     form = ImageForm()
     if form.validate_on_submit():
         # Get file
@@ -37,13 +21,14 @@ def image():
         image_dir = os.path.join(os.getcwd(), app.config['IMAGE_FOLDER'])
         f.save(os.path.join(image_dir, filename))
         
+        flash('Your image was uploaded!')
         return redirect(url_for('view', filename=filename))
     
-    return render_template('image.html', title='Upload Image', form=form)
+    return render_template('index.html', title='Upload Image', form=form)
     
 
-@app.route("/image/view/<filename>", methods=['GET', 'POST'])
-@app.route("/image/view/<filename>/<ext>", methods=['GET', 'POST'])
+@app.route("/index/view/<filename>", methods=['GET', 'POST'])
+@app.route("/index/view/<filename>/<ext>", methods=['GET', 'POST'])
 def view(filename, ext=None):
     form = ViewForm()
     file_ext = None
@@ -58,6 +43,22 @@ def view(filename, ext=None):
         return redirect(url_for('view', filename=filename, ext=file_ext))
             
     return render_template('view.html', title='View Image', filename=modify_filename(filename, ext), form=form)
+    
+    
+@app.route("/about")
+def about():
+    user = {"username": 'Omkar'}
+	
+    return render_template('about.html', title='About Me', user=user)
+    
+    
+@app.route("/query", methods=['GET', 'POST'])
+def query():
+    form = QueryForm()
+    if form.validate_on_submit():
+        flash('Your query consists of {} words'.format(get_num_words(form.query.data)))
+        return redirect(url_for('query'))
+    return render_template('query.html', title='Query', form=form)
     
 
 
