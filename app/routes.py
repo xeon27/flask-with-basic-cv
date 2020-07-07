@@ -49,7 +49,11 @@ def view(filename, ext=None):
     file_ext = None
     if form.validate_on_submit():
         if 'gray' in request.form:
-            file_ext = transform_img(app.config['IMAGE_FOLDER'], filename, 0)            
+            file_ext = transform_img(app.config['IMAGE_FOLDER'], filename, 0)    
+        elif 'edgev' in request.form:
+            file_ext = transform_img(app.config['IMAGE_FOLDER'], filename, 1)
+        elif 'edgeh' in request.form:
+            file_ext = transform_img(app.config['IMAGE_FOLDER'], filename, 2)
         
         return redirect(url_for('view', filename=filename, ext=file_ext))
             
