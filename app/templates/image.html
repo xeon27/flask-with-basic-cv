@@ -1,28 +1,25 @@
-<html>
-    <head>
-        <title>{{ title }}</title>
-    </head>
-    <body>
-        <h1>Try it yourself</h1>
-		<form action="" enctype="multipart/form-data" method="post">
-			{{ form.hidden_tag() }}
-			<p>
-				{{ form.image.label }}<br>
-				{{ form.image() }}
-			</p>
-			<p>
-				{{ form.upload() }}
-			</p>
-			{% with messages = get_flashed_messages() %}
-			{% if messages %}
-			<hr>
-			<ul>
-				{% for message in messages %}
-				<li>{{ message }}</li>
-				{% endfor %}
-			</ul>
-			{% endif %}
-			{% endwith %}
-		</form>
-    </body>
-</html>
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Try it yourself</h2>
+<form action="" enctype="multipart/form-data" method="post">
+	{{ form.hidden_tag() }}
+	<p>
+		{{ form.image.label }}<br>
+		{{ form.image() }}
+	</p>
+	<p>
+		{{ form.upload() }}
+	</p>
+	{% with messages = get_flashed_messages() %}
+	{% if messages %}
+	<hr>
+	<ul>
+		{% for message in messages %}
+		<li>{{ message }}</li>
+		{% endfor %}
+	</ul>
+	{% endif %}
+	{% endwith %}
+</form>
+{% endblock %}

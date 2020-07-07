@@ -1,22 +1,19 @@
-<html>
-    <head>
-        <title>{{ title }}</title>
-    </head>
-    <body>
-        <h1>Choose your view</h1>
-		<div>
-			<form action="" method="post">
-				{{ form.hidden_tag() }}
-				<p>{{ form.gray() }}</p>
-				<p>{{ form.edgev() }}</p>
-				<p>{{ form.edgeh() }}</p>
-				<p>{{ form.org() }}</p>
-			</form>
-		</div><br>
-		<div>
-			{% if filename %}
-				<img src="{{ url_for('static', filename='images/' + filename) }}" alt="Your uploaded image" style="width:650px;height:350px">
-			{% endif %}
-		</div>
-    </body>
-</html>
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Choose your view</h2>
+<div>
+	<form action="" method="post">
+		{{ form.hidden_tag() }}
+		<p>{{ form.gray() }}</p>
+		<p>{{ form.edgev() }}</p>
+		<p>{{ form.edgeh() }}</p>
+		<p>{{ form.org() }}</p>
+	</form>
+</div><br>
+<div>
+	{% if filename %}
+		<img src="{{ url_for('static', filename='images/' + filename) }}" alt="Your uploaded image" style="width:650px;height:350px">
+	{% endif %}
+</div>
+{% endblock %}
