@@ -1,7 +1,6 @@
 import os
-from flask import render_template, flash, redirect, url_for, request
+from flask import render_template, flash, redirect, url_for, request, current_app
 from werkzeug.utils import secure_filename
-from app import app
 from app.main import bp
 from app.main.forms import QueryForm, ImageForm, ViewForm
 from app.main.utils import get_num_words, transform_img, modify_filename
@@ -19,7 +18,7 @@ def index():
         filename = secure_filename(f.filename)
         
         # Save file
-        image_dir = os.path.join(os.getcwd(), app.config['IMAGE_FOLDER'])
+        image_dir = os.path.join(os.getcwd(), current_app.config['IMAGE_FOLDER'])
         f.save(os.path.join(image_dir, filename))
         
         flash('Your image was uploaded!')
@@ -34,12 +33,13 @@ def view(filename, ext=None):
     form = ViewForm()
     file_ext = None
     if form.validate_on_submit():
+        path = current_app.config['IMAGE_FOLDER']
         if 'gray' in request.form:
-            file_ext = transform_img(app.config['IMAGE_FOLDER'], filename, 0)    
+            file_ext = transform_img(path, filename, 0)    
         elif 'edgev' in request.form:
-            file_ext = transform_img(app.config['IMAGE_FOLDER'], filename, 1)
+            file_ext = transform_img(path, filename, 1)
         elif 'edgeh' in request.form:
-            file_ext = transform_img(app.config['IMAGE_FOLDER'], filename, 2)
+            file_ext = transform_img(path, filename, 2)
         
         return redirect(url_for('main.view', filename=filename, ext=file_ext))
             
